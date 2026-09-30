@@ -1,0 +1,205 @@
+/* resources/css/app.css  (Tailwind v4)
+   ONE place for the whole look of the project. */
+@import "tailwindcss";
+
+/* ============================================================
+   1) DESIGN TOKENS: colors and fonts live here only.
+   Change a value here and every page changes.
+   ============================================================ */
+@theme {
+    --color-orange: #fb923c;
+    --color-cyan: #22d3ee;
+    --color-track: #1e252b;   /* empty part of doughnut charts */
+    --color-base: #0b0f12;                 /* page background */
+    --color-surface: #11161a;              /* cards, tables */
+    --color-line: rgb(255 255 255 / 0.06); /* borders */
+
+    --color-fg: #ffffff;                   /* main text */
+    --color-muted: #8c98a5;                /* secondary text */
+    --color-dim: #52606d;                  /* hints, placeholders */
+
+    --color-brand: #00ff66;                /* main accent (green) */
+    --color-info: #00aaff;
+    --color-accent: #a855f7;
+    --color-warning: #facc15;
+    --color-danger: #f87171;
+
+    --font-sans: "Cairo", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* ============================================================
+   2) BASE
+   ============================================================ */
+@layer base {
+    body {
+        @apply bg-base font-sans text-fg antialiased;
+    }
+    html { color-scheme: dark; }
+}
+
+/* ============================================================
+   3) COMPONENT CLASSES: reuse these names in every page.
+   ============================================================ */
+@layer components {
+
+    /* Flash messages (skip if you already added them) */
+    .alert         { @apply rounded-xl border px-4 py-3 text-sm; }
+    .alert-success { @apply border-brand/20 bg-brand/10 text-brand; }
+    .alert-danger  { @apply border-danger/20 bg-danger/10 text-danger; }
+ 
+
+    /* ---- Card ---- */
+    .card {
+        @apply rounded-2xl border border-line bg-surface p-5;
+    }
+
+    .chip {
+        @apply flex items-center gap-3 rounded-xl border border-line bg-surface px-4 py-2.5 text-sm text-fg;
+    }
+
+    /* ---- Buttons ---- */
+    .btn {
+        @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5
+               text-sm font-semibold transition duration-200
+               disabled:cursor-not-allowed disabled:opacity-50;
+    }
+    .btn-primary   { @apply bg-brand text-black hover:bg-brand/90; }
+    .btn-secondary { @apply border border-line bg-white/[0.04] text-fg hover:bg-white/[0.08]; }
+    .btn-danger    { @apply bg-danger/10 text-danger hover:bg-danger/20; }
+    .btn-sm        { @apply px-3 py-1.5 text-xs; }
+
+    /* ---- Forms ---- */
+    .form-label {
+        @apply mb-1.5 block text-xs font-semibold text-muted;
+    }
+    .form-input {
+        @apply w-full rounded-xl border border-line bg-white/[0.03] px-3 py-2.5
+               text-sm text-fg placeholder:text-dim transition
+               focus:border-brand/40 focus:outline-none focus:ring-2 focus:ring-brand/10;
+    }
+    .form-error {
+        @apply mt-1 text-xs text-danger;
+    }
+
+    /* ---- Table ---- */
+    .table-wrap {
+        @apply overflow-x-auto rounded-2xl border border-line bg-surface;
+    }
+    .data-table {
+        @apply w-full text-sm;
+    }
+    .data-table th {
+        @apply border-b border-line px-4 py-3 text-right text-xs font-bold uppercase tracking-wider text-dim;
+    }
+    .data-table td {
+        @apply border-b border-line px-4 py-3 text-muted;
+    }
+    .data-table tbody tr:last-child td {
+        @apply border-b-0;
+    }
+    .data-table tbody tr:hover {
+        @apply bg-white/[0.03];
+    }
+
+    /* ---- Badges ---- */
+    .badge {
+        @apply inline-flex items-center rounded-lg px-2.5 py-1 text-[11px] font-semibold;
+    }
+    .badge-success { @apply bg-brand/10 text-brand; }
+    .badge-info    { @apply bg-info/10 text-info; }
+    .badge-warning { @apply bg-warning/10 text-warning; }
+    .badge-danger  { @apply bg-danger/10 text-danger; }
+
+    /*  */
+
+        /* Outline buttons */
+    .btn-outline-info    { @apply border border-info/40 bg-info/5 text-info hover:bg-info/10; }
+    .btn-outline-danger  { @apply border border-danger/40 bg-danger/5 text-danger hover:bg-danger/10; }
+    .btn-outline-success { @apply border border-brand/40 bg-brand/5 text-brand hover:bg-brand/10; }
+ 
+    /* Filter bar (use together with .card) */
+    .filter-bar { @apply mb-6 flex flex-wrap items-end gap-4; }
+ 
+    /* Extra badge styles (use together with .badge) */
+    .badge-outline-info { @apply border border-info/40 bg-info/5 text-info; }
+    .badge-owner        { @apply border border-warning/50 bg-warning/10 text-warning; }
+ 
+    /* Small pill (bank name, supervisor name) */
+    .tag {
+        @apply inline-flex items-center gap-2 rounded-full border border-line bg-white/[0.04]
+               px-3 py-1 text-[11px] font-semibold text-fg;
+    }
+    .avatar-xs {
+        @apply flex h-4 w-4 items-center justify-center rounded-full bg-info text-[9px] font-bold text-black;
+    }
+ 
+    /* Round icon buttons in table rows */
+    .icon-btn         { @apply flex h-8 w-8 items-center justify-center rounded-full text-xs transition duration-200; }
+    .icon-btn-cyan    { @apply bg-cyan/15 text-cyan hover:bg-cyan/30; }
+    .icon-btn-info    { @apply bg-info/15 text-info hover:bg-info/30; }
+    .icon-btn-warning { @apply bg-warning/15 text-warning hover:bg-warning/30; }
+    .icon-btn-accent  { @apply bg-accent/15 text-accent hover:bg-accent/30; }
+    .icon-btn-orange  { @apply bg-orange/15 text-orange hover:bg-orange/30; }
+
+
+       .pill {
+        @apply inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-line
+               bg-white/[0.03] px-3 py-1.5 text-xs text-muted transition hover:text-fg;
+    }
+    .pill-radio:checked + .pill {
+        @apply border-brand/40 bg-brand/15 font-semibold text-brand;
+    }
+    .pill-radio:focus-visible + .pill {
+        @apply ring-2 ring-brand/30;
+    }
+ 
+    /* Progress bar track (the colored bar is a child with its own width) */
+    .progress {
+        @apply h-1.5 w-full overflow-hidden rounded-full bg-white/[0.06];
+    }
+
+        /* More round icon buttons + disabled state */
+    .icon-btn-danger  { @apply bg-danger/15 text-danger hover:bg-danger/30; }
+    .icon-btn-success { @apply bg-brand/15 text-brand hover:bg-brand/30; }
+    .icon-btn:disabled { @apply cursor-not-allowed opacity-40; }
+ 
+    /* Neutral badge (bucket number) */
+    .badge-neutral { @apply bg-white/[0.06] text-fg; }
+ 
+    /* Dropdown menu item (row actions) */
+    .menu-item {
+        @apply flex w-full items-center gap-2 rounded-lg px-3 py-2 text-xs text-muted
+               transition hover:bg-white/[0.06] hover:text-fg;
+    }
+ 
+    /* Big input used for the client name inside the modal header */
+    .inline-input {
+        @apply w-72 max-w-full border-0 border-b border-transparent bg-transparent pb-0.5 text-xl font-bold
+               text-fg transition focus:border-brand/40 focus:outline-none;
+    }
+ 
+    /* Modal (native <dialog>) */
+    .modal {
+        @apply m-auto max-h-[90vh] w-[calc(100%-2rem)] max-w-5xl overflow-y-auto rounded-2xl
+               border border-line bg-base p-0 text-fg shadow-2xl shadow-black/60;
+    }
+    .modal::backdrop {
+        background: rgb(0 0 0 / 0.7);
+        backdrop-filter: blur(2px);
+    }
+
+        /* Segmented switch (Board / Calendar) */
+    .segmented {
+        @apply inline-flex rounded-xl border border-line bg-white/[0.03] p-1;
+    }
+    .segmented-item {
+        @apply inline-flex items-center gap-2 rounded-lg px-3 py-1.5 text-xs font-semibold text-muted transition hover:text-fg;
+    }
+    .segmented-item-active {
+        @apply bg-brand text-black hover:text-black;
+    }
+ 
+
+}
+
+/* updated */
