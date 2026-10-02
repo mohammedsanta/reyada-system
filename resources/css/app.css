@@ -200,6 +200,19 @@
         @apply bg-brand text-black hover:text-black;
     }
  
+        /* File upload area */
+    .dropzone {
+        @apply flex cursor-pointer flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed
+               border-line bg-white/[0.02] px-6 py-10 text-center text-sm text-muted transition
+               hover:border-brand/40 hover:text-fg;
+    }
+ 
+    /* Checkbox / radio row used in permission lists and assignments */
+    .check-row {
+        @apply flex cursor-pointer items-center gap-3 rounded-xl border border-line bg-white/[0.02]
+               px-3 py-2.5 text-sm text-muted transition hover:text-fg;
+    }
+ 
 
 }
 

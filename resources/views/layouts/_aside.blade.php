@@ -18,7 +18,7 @@
             </div>
 
             <div>
-                <h1 class="text-base font-bold tracking-wide text-white">كولكتس</h1>
+                <h1 class="text-base font-bold tracking-wide text-white">Reyada</h1>
                 <p class="mt-0.5 text-[10px] text-[#64707c]">نظام إدارة التحصيل</p>
             </div>
         </div>

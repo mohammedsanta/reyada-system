@@ -192,8 +192,8 @@
                         </div>
                     </div>
 
-                    {{-- Details (TODO: link to the employee details page) --}}
-                    <a href="#" class="text-dim transition hover:text-fg" title="التفاصيل">
+                    {{-- Details --}}
+                    <a href="{{ route('employees.show', $employee->code) }}" class="text-dim transition hover:text-fg" title="التفاصيل">
                         <i class="fa-solid fa-chevron-left"></i>
                     </a>
                 </div>
