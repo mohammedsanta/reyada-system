@@ -4,6 +4,7 @@
 @section('title', 'مركز متابعة الوعود - ' . $bank->name)
 
 @php
+    // 'bank' is a required route parameter, so it must be part of every route() call below
     $query = ['bank' => $bank->id] + request()->query();
 
     // Full class names so Tailwind can detect them.
@@ -46,7 +47,9 @@
             </div>
         </div>
 
-        {{-- Board / Calendar switch --}}
+        {{-- Add promise + Board / Calendar switch --}}
+        <div class="flex flex-wrap items-center gap-3">
+            <a href="{{ route('banks.ptp.create', $bank->id) }}" class="btn btn-primary btn-sm"><i class="fa-solid fa-plus text-xs"></i> إضافة وعد</a>
         <div class="segmented">
             <a href="{{ route('banks.ptp.index', array_merge($query, ['view' => 'board'])) }}"
                class="segmented-item {{ $filters['view'] === 'board' ? 'segmented-item-active' : '' }}">
@@ -56,6 +59,7 @@
                class="segmented-item {{ $filters['view'] === 'calendar' ? 'segmented-item-active' : '' }}">
                 <i class="fa-regular fa-calendar"></i> التقويم
             </a>
+        </div>
         </div>
     </header>
 

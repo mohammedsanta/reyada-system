@@ -5,6 +5,7 @@ use App\Http\Controllers\BankClientController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\BankImportController;
 use App\Http\Controllers\BankPanelController;
+use App\Http\Controllers\BankScopeEditController;
 use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\DashboardController;
@@ -12,6 +13,11 @@ use App\Http\Controllers\DcrController;
 use App\Http\Controllers\DistributionController;
 use App\Http\Controllers\EmployeeDetailsController;
 use App\Http\Controllers\EmployeePerformanceController;
+use App\Http\Controllers\InstallmentCompanyController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\OperationController;
+use App\Http\Controllers\OverviewController;
+use App\Http\Controllers\PromiseController;
 use App\Http\Controllers\PtpController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserAssignmentController;
@@ -88,3 +94,29 @@ Route::put('banks/{bank}/visits/{visit}', [VisitController::class, 'update'])->n
 
 Route::get('banks/{bank}/archives', [BankArchiveController::class, 'index'])->name('banks.archives.index');
 Route::get('banks/{bank}/archives/{archive}', [BankArchiveController::class, 'show'])->name('banks.archives.show');
+
+Route::get('banks/{bank}/scope/edit', [BankScopeEditController::class, 'edit'])->name('banks.scope.edit');
+Route::put('banks/{bank}/scope/edit', [BankScopeEditController::class, 'update'])->name('banks.scope.update');
+
+
+Route::get('banks/{bank}/ptp/create', [PromiseController::class, 'create'])->name('banks.ptp.create');
+Route::post('banks/{bank}/ptp', [PromiseController::class, 'store'])->name('banks.ptp.store');
+Route::get('banks/{bank}/ptp/{promise}', [PromiseController::class, 'show'])->name('banks.ptp.show');
+Route::put('banks/{bank}/ptp/{promise}', [PromiseController::class, 'update'])->name('banks.ptp.update');
+
+
+Route::get('notifications', [NotificationController::class, 'index'])->name('notifications.index');
+Route::post('notifications/read-all', [NotificationController::class, 'readAll'])->name('notifications.read-all');
+Route::post('notifications/{notification}/read', [NotificationController::class, 'read'])->name('notifications.read');
+
+Route::get('overview', OverviewController::class)->name('overview.index');
+
+Route::get('operations', OperationController::class)->name('operations.index');
+
+Route::resource('installment-companies', InstallmentCompanyController::class)
+    ->except('show')
+    ->parameters(['installment-companies' => 'company']);
+ 
+// Control panel of one company: /installment-companies/1/panel
+Route::get('installment-companies/{company}/panel', [InstallmentCompanyController::class, 'panel'])->name('installment-companies.panel');
+ 
