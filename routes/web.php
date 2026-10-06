@@ -1,25 +1,36 @@
 <?php
 
+use App\Http\Controllers\AccountController;
+use App\Http\Controllers\ActivityLogController;
+use App\Http\Controllers\ArchiveController;
 use App\Http\Controllers\BankArchiveController;
+use App\Http\Controllers\BankClientAssignController;
 use App\Http\Controllers\BankClientController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\BankImportController;
 use App\Http\Controllers\BankPanelController;
 use App\Http\Controllers\BankScopeEditController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\ConfirmationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DcrController;
 use App\Http\Controllers\DistributionController;
-use App\Http\Controllers\EmployeeDetailsController;
+use App\Http\Controllers\Employee\EmployeeDetailsController;
 use App\Http\Controllers\EmployeePerformanceController;
+use App\Http\Controllers\GovernorateController;
 use App\Http\Controllers\InstallmentCompanyController;
+use App\Http\Controllers\LoanTypeController;
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\OperationController;
 use App\Http\Controllers\OverviewController;
+use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\PromiseController;
 use App\Http\Controllers\PtpController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserAssignmentController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPermissionController;
@@ -119,4 +130,85 @@ Route::resource('installment-companies', InstallmentCompanyController::class)
  
 // Control panel of one company: /installment-companies/1/panel
 Route::get('installment-companies/{company}/panel', [InstallmentCompanyController::class, 'panel'])->name('installment-companies.panel');
+
+Route::get('archives', [ArchiveController::class, 'index'])->name('archives.index');
+
+Route::get('reports', [ReportController::class, 'index'])->name('reports.index');
+Route::post('reports', [ReportController::class, 'store'])->name('reports.store');
+ 
+Route::get('reports/exports', [ReportController::class, 'exports'])->name('reports.exports');
+Route::post('reports/exports/{export}/retry', [ReportController::class, 'retry'])->name('reports.exports.retry');
+Route::delete('reports/exports/{export}', [ReportController::class, 'destroy'])->name('reports.exports.destroy');
+
+ 
+Route::post('banks/{bank}/clients/assign', BankClientAssignController::class)->name('banks.clients.assign');
+
+Route::get(
+    '/banks/{bank}/clients/assign/employees/search',
+    [BankClientAssignController::class, 'searchEmployees']
+)->name('banks.clients.assign.employees.search');
+
+Route::post(
+    '/banks/{bank}/clients/assign',
+    BankClientAssignController::class
+)->name('banks.clients.assign');
+
+
+Route::get('activity-logs', [ActivityLogController::class, 'index'])->name('activity-logs.index');
+
+// "/" opens the dashboard (or the login page if the visitor is not logged in)
+Route::redirect('/', '/dashboard');
+ 
+// ---- only for visitors who are NOT logged in ----
+Route::middleware('guest')->group(function () {
+    Route::get('login', [LoginController::class, 'create'])->name('login');
+    Route::post('login', [LoginController::class, 'store']);
+ 
+    Route::get('forgot-password', [PasswordResetController::class, 'create'])->name('password.request');
+    Route::post('forgot-password', [PasswordResetController::class, 'store'])->name('password.email');
+ 
+    Route::get('reset-password/{token}', [PasswordResetController::class, 'edit'])->name('password.reset');
+    Route::post('reset-password', [PasswordResetController::class, 'update'])->name('password.store');
+});
+ 
+// ---- logout: only for logged in users, and only by POST (the sidebar menu already posts to it) ----
+Route::post('logout', [LoginController::class, 'destroy'])->middleware('auth')->name('logout');
+ 
+ 
+/* ---------------------------------------------------------------------------------------------
+   bootstrap/app.php : tell Laravel where to send people
+   (inside ->withMiddleware(function (Middleware $middleware) { ... }) )
+ 
+       $middleware->redirectGuestsTo(fn () => route('login'));       // not logged in  -> login page
+       $middleware->redirectUsersTo(fn () => route('dashboard'));    // already logged in and opens /login -> dashboard
+   --------------------------------------------------------------------------------------------- */
+ 
+
+Route::get('account', [AccountController::class, 'edit'])->name('account.edit');
+Route::put('account', [AccountController::class, 'update'])->name('account.update');
+Route::put('account/password', [AccountController::class, 'password'])->name('account.password');
+
+Route::get('/t403', fn () => abort(403, 'لا يمكن تعديل حساب النظام.'));
+Route::get('/t419', fn () => abort(419));
+Route::get('/t429', fn () => abort(429));
+Route::get('/t500', fn () => abort(500));
+Route::get('/t503', fn () => abort(503));
+// 404: just open any URL that does not exist
+
+Route::get('clients', [ClientController::class, 'index'])->name('clients.index');
+
+// 
+
+// System settings
+Route::get('settings', [SettingController::class, 'index'])->name('settings.index');
+Route::put('settings', [SettingController::class, 'update'])->name('settings.update');
+ 
+// Lookup lists (the URL parameter names match the controller methods)
+Route::resource('loan-types', LoanTypeController::class)
+    ->only(['index', 'store', 'update', 'destroy'])
+    ->parameters(['loan-types' => 'type']);
+ 
+Route::resource('governorates', GovernorateController::class)
+    ->only(['index', 'store', 'update', 'destroy'])
+    ->parameters(['governorates' => 'governorate']);
  

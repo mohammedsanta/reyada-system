@@ -1,0 +1,931 @@
+# Debt Collection Management System
+
+A professional Arabic RTL **Debt Collection Management System** built with Laravel, designed to manage debtors, collection cases, employees, supervisors, banks, installment companies, assignments, payments, promises, complaints, notifications, reporting, and operational workflows.
+
+The system is being developed as a scalable business platform rather than a simple CRUD application.
+
+---
+
+## Project Status
+
+> **Current Status: Active Development**
+
+The project currently contains a strong operational foundation including database architecture, employee and bank management, collection cases, assignment/distribution, dashboards, settings, notifications, imports, archives, reports, and a professional Arabic RTL interface.
+
+Advanced automation, monitoring, integrations, workflow engines, and some enterprise features are still under development.
+
+### Status Legend
+
+| Status                   | Meaning                                                                  |
+| ------------------------ | ------------------------------------------------------------------------ |
+| 🟢 Implemented           | Feature is implemented and usable                                        |
+| 🟡 Partially Implemented | Foundation/UI/database exists, but the complete workflow is not finished |
+| 🔴 Planned               | Feature is designed/planned but not implemented yet                      |
+
+---
+
+# Core Modules
+
+|  # | Feature               | Status | Details                                                                         |
+| -: | --------------------- | :----: | ------------------------------------------------------------------------------- |
+|  1 | 35+ Database Tables   |   🟢   | Large relational database designed around the collection domain                 |
+|  2 | Roles                 |   🟢   | Role management implemented                                                     |
+|  3 | Permissions           |   🟢   | Permission foundation implemented                                               |
+|  4 | Employees             |   🟢   | Employee management and performance views                                       |
+|  5 | Supervisors           |   🟡   | Supervisor concept exists, advanced management still required                   |
+|  6 | Banks                 |   🟢   | Bank management, scopes, distribution and related operations                    |
+|  7 | Installment Companies |   🟢   | Management, dashboard and configuration                                         |
+|  8 | Clients / Debtors     |   🟢   | Debtor/client management foundation                                             |
+|  9 | Guarantors            |   🟡   | Database/domain design exists; complete UI/workflow is still being developed    |
+| 10 | Cases                 |   🟢   | Collection cases are part of the core system                                    |
+| 11 | Debt                  |   🟢   | Debt/indebtedness data included in the system                                   |
+| 12 | Distribution          |   🟢   | Employee distribution interface and selection                                   |
+| 13 | Assignment            |   🟢   | Assign collection cases to employees                                            |
+| 14 | Payments              |   🟡   | Payment functionality exists conceptually but lifecycle needs completion        |
+| 15 | Payment Confirmations |   🟢   | Confirmation workflow/page implemented                                          |
+| 16 | Promises / PTP        |   🟡   | Promise data and performance metrics exist; full lifecycle needs completion     |
+| 17 | Notifications         |   🟢   | Notification management and notification settings                               |
+| 18 | Complaints            |   🟡   | Complaint functionality exists but advanced workflow is still under development |
+| 19 | Archives              |   🟢   | Archive interface, filtering and details                                        |
+| 20 | Imports               |   🟢   | Import interface and import history                                             |
+| 21 | Exports               |   🟡   | Export functionality exists in parts of the system                              |
+| 22 | Dashboards            |   🟢   | Main and operational dashboards                                                 |
+| 23 | Settings              |   🟢   | System settings and lookup management                                           |
+| 24 | Reports               |   🟡   | Metrics and reporting foundations exist; advanced reporting is planned          |
+| 25 | Search                |   🟢   | Search functionality implemented in multiple modules                            |
+| 26 | Advanced Filters      |   🟢   | Multiple filtering interfaces implemented                                       |
+| 27 | Activity Tracking     |   🟡   | Foundation exists; complete activity system is planned                          |
+| 28 | Professional UI       |   🟢   | Dark professional business interface                                            |
+| 29 | Arabic RTL            |   🟢   | Arabic-first RTL interface                                                      |
+| 30 | Responsive UI         |   🟢   | Responsive Tailwind-based interface                                             |
+| 31 | Database Architecture |   🟢   | Structured relational architecture                                              |
+| 32 | Laravel Architecture  |   🟡   | Good Laravel foundation; deeper domain/service architecture is planned          |
+
+---
+
+# Security & Administration
+
+|  # | Feature                        | Status | Details                                                                            |
+| -: | ------------------------------ | :----: | ---------------------------------------------------------------------------------- |
+| 33 | Complete Audit Log             |   🔴   | Planned                                                                            |
+| 34 | Advanced Permission Matrix     |   🟡   | Basic permission architecture exists; advanced matrix planned                      |
+| 35 | Login History                  |   🔴   | Planned                                                                            |
+| 36 | Device / Session Management    |   🔴   | Planned                                                                            |
+| 37 | Backup System                  |   🔴   | Planned                                                                            |
+| 38 | Queue Monitoring               |   🔴   | Planned                                                                            |
+| 39 | Error Monitoring               |   🔴   | Planned                                                                            |
+| 40 | API                            |   🟡   | Laravel API foundation is possible; complete API layer not finished                |
+| 41 | Import Mapping                 |   🔴   | Planned                                                                            |
+| 42 | Duplicate Detection            |   🔴   | Planned                                                                            |
+| 43 | Advanced Reports               |   🟡   | Basic reporting/metrics exist                                                      |
+| 44 | Scheduled Jobs                 |   🔴   | Planned                                                                            |
+| 45 | Notification Rules             |   🟡   | Notification settings exist; complete rules engine planned                         |
+| 46 | SLA                            |   🔴   | Planned                                                                            |
+| 47 | Escalation                     |   🔴   | Planned                                                                            |
+| 48 | Automated Collection Workflows |   🔴   | Planned                                                                            |
+| 49 | Advanced Dashboards            |   🟡   | Current dashboards are implemented; advanced analytics planned                     |
+| 50 | Data Export Engine             |   🟡   | Export functionality exists; centralized export engine planned                     |
+| 51 | Security Hardening             |   🟡   | Laravel security foundation exists; production hardening planned                   |
+| 52 | Automated Testing              |   🔴   | Planned                                                                            |
+| 53 | Production Deployment          |   🟡   | Local development environment is working; production deployment needs finalization |
+| 54 | Backup / Restore               |   🔴   | Planned                                                                            |
+| 55 | Production Monitoring          |   🔴   | Planned                                                                            |
+
+---
+
+# Collection Automation
+
+The long-term goal is to automate collection workflows based on business rules.
+
+For example:
+
+```text
+Customer has overdue debt
+        │
+        ▼
+No payment for 3 days
+        │
+        ▼
+Send notification
+        │
+        ▼
+No payment for 7 days
+        │
+        ▼
+Notify supervisor
+        │
+        ▼
+No payment for 15 days
+        │
+        ▼
+Escalate the case
+```
+
+Current status:
+
+| Automation Feature             | Status |
+| ------------------------------ | :----: |
+| 3-day payment notification     |   🔴   |
+| 7-day supervisor escalation    |   🔴   |
+| 15-day escalation              |   🔴   |
+| Scheduled automation engine    |   🔴   |
+| Rule-based notifications       |   🟡   |
+| SLA tracking                   |   🔴   |
+| Escalation engine              |   🔴   |
+| Automated collection workflows |   🔴   |
+
+These features are part of the planned automation layer and should not currently be considered fully implemented.
+
+---
+
+# Operational Features
+
+|  # | Feature                    | Status | Details                                                        |
+| -: | -------------------------- | :----: | -------------------------------------------------------------- |
+| 56 | Communication History      |   🟡   | Foundation exists; unified communication timeline planned      |
+| 57 | Call History               |   🟡   | Concept exists; complete integration is planned                |
+| 58 | Customer Timeline          |   🟡   | Can be built from activities, payments and promises            |
+| 59 | Employee Performance       |   🟢   | Metrics and charts implemented                                 |
+| 60 | Collection KPIs            |   🟢   | Operational KPIs implemented                                   |
+| 61 | Bulk Selection             |   🟢   | Implemented in several interfaces                              |
+| 62 | Bulk Assignment            |   🟢   | Implemented                                                    |
+| 63 | Excel Import UI            |   🟢   | Implemented                                                    |
+| 64 | Import History             |   🟢   | Implemented                                                    |
+| 65 | Filter Persistence         |   🟡   | Implemented in selected workflows                              |
+| 66 | Copy Utilities             |   🟢   | Client information copy actions implemented                    |
+| 67 | Customer Print File        |   🟢   | Frontend print workflow implemented                            |
+| 68 | Customer Action Menu       |   🟢   | Customer actions implemented at UI level                       |
+| 69 | Assignment History         |   🟡   | Requires complete audit/history backend                        |
+| 70 | Payment History            |   🟡   | Foundation exists                                              |
+| 71 | Complaint Workflow         |   🟡   | Basic foundation exists                                        |
+| 72 | Data Validation            |   🟢   | Laravel validation implemented in multiple workflows           |
+| 73 | Reference / Lookup Data    |   🟢   | Generic lookup management implemented                          |
+| 74 | Lookup Search              |   🟢   | Search implemented                                             |
+| 75 | Lookup Add / Edit / Delete |   🟢   | Implemented                                                    |
+| 76 | Status Management          |   🟢   | Available in several modules                                   |
+| 77 | Customer Assignment        |   🟢   | Implemented                                                    |
+| 78 | Employee Workload          |   🟡   | Some capacity concepts exist; complete workload engine planned |
+| 79 | Distribution Preview       |   🟢   | Implemented                                                    |
+| 80 | Distribution History       |   🟢   | UI implemented                                                 |
+
+---
+
+# Advanced Business Features
+
+|   # | Feature                              | Status | Details                                                   |
+| --: | ------------------------------------ | :----: | --------------------------------------------------------- |
+|  81 | Data Retention                       |   🔴   | Planned                                                   |
+|  82 | Privacy / Data Controls              |   🔴   | Planned                                                   |
+|  83 | Maintenance Mode Management          |   🔴   | Planned                                                   |
+|  84 | System Health Checks                 |   🔴   | Planned                                                   |
+|  85 | Scheduler Monitoring                 |   🔴   | Planned                                                   |
+|  86 | File / Storage Management            |   🟡   | Upload foundation exists                                  |
+|  87 | API Token Management                 |   🔴   | Planned                                                   |
+|  88 | Webhook Management                   |   🔴   | Planned                                                   |
+|  89 | Rate Limiting Configuration          |   🟡   | Laravel foundation exists                                 |
+|  90 | Feature Flags                        |   🔴   | Planned                                                   |
+|  91 | Workflow Engine                      |   🔴   | Planned                                                   |
+|  92 | Business Hours                       |   🔴   | Planned                                                   |
+|  93 | Holidays                             |   🔴   | Planned                                                   |
+|  94 | Custom Fields                        |   🔴   | Planned                                                   |
+|  95 | Approval Chains                      |   🟡   | Payment confirmation provides an initial approval concept |
+|  96 | Blacklist / Do-Not-Contact           |   🔴   | Planned                                                   |
+|  97 | Settlement / Restructure / Write-off |   🔴   | Planned                                                   |
+|  98 | Commission / Incentive Engine        |   🔴   | Planned                                                   |
+|  99 | Branch / Territory Management        |   🔴   | Planned                                                   |
+| 100 | Advanced Call Center / VoIP          |   🔴   | Planned                                                   |
+| 101 | SMS Integration                      |   🔴   | Planned                                                   |
+| 102 | WhatsApp Integration                 |   🔴   | Planned                                                   |
+
+---
+
+# Technology Stack
+
+## Backend
+
+* PHP
+* Laravel
+* Laravel Eloquent ORM
+* Laravel Validation
+* Laravel Authentication / Authorization
+* REST API architecture
+* MySQL
+
+## Frontend
+
+* Blade
+* Tailwind CSS
+* JavaScript
+* Font Awesome
+* Cairo Font
+* RTL Arabic UI
+* Responsive design
+
+## Development
+
+* Git
+* Composer
+* Laravel Artisan
+* Vite
+* MySQL
+* XAMPP / local development environment
+
+---
+
+# Architecture
+
+The system is designed around business domains instead of treating the application as a collection of unrelated CRUD pages.
+
+Major domains include:
+
+```text
+Users & Access
+       │
+       ├── Roles
+       ├── Permissions
+       └── Employees
+       
+Collection
+       │
+       ├── Clients
+       ├── Cases
+       ├── Debt
+       ├── Promises
+       ├── Payments
+       └── Confirmations
+
+Organizations
+       │
+       ├── Banks
+       └── Installment Companies
+
+Operations
+       │
+       ├── Assignment
+       ├── Distribution
+       ├── Complaints
+       ├── Notifications
+       └── Archives
+
+Data
+       │
+       ├── Imports
+       ├── Exports
+       ├── Search
+       └── Reports
+
+Administration
+       │
+       ├── Settings
+       ├── Activity
+       ├── Security
+       └── Monitoring
+```
+
+---
+
+# UI / UX
+
+The application uses a consistent business-oriented design system.
+
+### Main Design Characteristics
+
+* Arabic RTL
+* Dark professional interface
+* Responsive layouts
+* Reusable Blade components
+* Consistent cards
+* KPI components
+* Data tables
+* Modal workflows
+* Search and filtering
+* Status badges
+* Action buttons
+* Empty states
+* Validation messages
+* Flash messages
+* Loading states
+* Keyboard shortcuts
+* Bulk selection
+* Copy-to-clipboard utilities
+
+---
+
+# Current Implemented UI Components
+
+The project uses reusable Blade components such as:
+
+```text
+x-page-header
+x-flash
+x-panel
+x-kpi-card
+x-stat-card
+x-metric-card
+x-hub-tile
+x-avatar
+x-status-badge
+x-empty-state
+x-action-icon
+x-form-field
+x-select-field
+x-section-card
+x-bank-header
+x-modal
+x-textarea-field
+```
+
+This reduces duplicated UI code and keeps the application visually consistent.
+
+---
+
+# Database
+
+The database contains **35+ relational tables** covering the main collection domain.
+
+The database architecture is designed to support:
+
+* Employees
+* Roles
+* Permissions
+* Banks
+* Installment companies
+* Clients
+* Debtors
+* Guarantors
+* Cases
+* Debts
+* Assignments
+* Distribution
+* Payments
+* Confirmations
+* Promises
+* Notifications
+* Complaints
+* Archives
+* Activity
+* Reporting
+* Settings
+* Reference data
+
+The database is intended to support future automation and workflow features without requiring a complete redesign.
+
+---
+
+# Collection Workflow
+
+The intended collection lifecycle is:
+
+```text
+Client
+   │
+   ▼
+Case
+   │
+   ▼
+Debt
+   │
+   ▼
+Assignment
+   │
+   ▼
+Collection Employee
+   │
+   ├───────────────┐
+   ▼               ▼
+Call            Promise
+   │               │
+   ▼               ▼
+Follow-up       Payment
+                   │
+                   ▼
+             Confirmation
+                   │
+                   ▼
+                Closed
+```
+
+Future automation will extend this lifecycle with:
+
+```text
+Overdue
+   │
+   ▼
+Notification
+   │
+   ▼
+Supervisor Escalation
+   │
+   ▼
+SLA Breach
+   │
+   ▼
+Escalation Workflow
+```
+
+---
+
+# Import Architecture
+
+The current system includes an import interface designed for large collection datasets.
+
+Implemented:
+
+* File upload interface
+* File validation
+* Import mode selection
+* Required/optional column information
+* Import history
+* Import status
+* User feedback
+
+Planned:
+
+* Dynamic column mapping
+* Automatic column detection
+* Duplicate detection
+* Import preview
+* Row-level validation
+* Failed-row export
+* Import rollback
+* Background imports
+* Queue monitoring
+
+---
+
+# Assignment & Distribution
+
+The system supports assigning collection cases to employees.
+
+Implemented:
+
+* Employee selection
+* Bulk case selection
+* Assignment
+* Distribution interface
+* Distribution preview
+* Employee filtering
+* Selection counters
+* Distribution history UI
+* Assignment confirmation
+
+Planned:
+
+* Advanced workload balancing
+* Automatic assignment algorithms
+* Employee capacity rules
+* Skill-based assignment
+* Territory-based assignment
+* SLA-based assignment
+* Automated reassignment
+
+---
+
+# Notifications
+
+Current notification capabilities include:
+
+* Notification management
+* Notification settings
+* Payment notification configuration
+* Complaint notification configuration
+* Broken promise notification configuration
+* Daily digest configuration
+
+Planned:
+
+* Rule engine
+* Scheduled notifications
+* Escalation notifications
+* SMS
+* WhatsApp
+* Email automation
+* Notification templates
+* Retry handling
+* Notification delivery logs
+
+---
+
+# Reporting
+
+Current reporting capabilities include:
+
+* Employee performance metrics
+* Collection KPIs
+* Dashboard statistics
+* Payment-related metrics
+* Promise-related metrics
+* Bank-level information
+* Operational summaries
+
+Planned:
+
+* Advanced report builder
+* Custom date ranges
+* Scheduled reports
+* Excel/PDF report generation
+* Management reports
+* Collection trend analysis
+* Employee ranking reports
+* Aging reports
+* Recovery rate reports
+* SLA reports
+
+---
+
+# Security Roadmap
+
+Security is divided into multiple layers.
+
+### Current Foundation
+
+* Laravel authentication foundation
+* Authorization foundation
+* Role management
+* Permission foundation
+* Server-side validation
+* CSRF protection through Laravel
+* Route protection foundation
+
+### Planned Security Layer
+
+* Complete audit logging
+* Login history
+* Failed login tracking
+* Device management
+* Session management
+* API token management
+* IP restrictions
+* Security event logging
+* Suspicious login detection
+* Data masking
+* Sensitive-field protection
+* Security monitoring
+* Production security hardening
+
+---
+
+# Monitoring Roadmap
+
+The production monitoring layer is planned to include:
+
+```text
+Application
+    │
+    ├── Error Monitoring
+    ├── Performance Monitoring
+    ├── SQL Monitoring
+    ├── Queue Monitoring
+    ├── Scheduler Monitoring
+    ├── Storage Monitoring
+    ├── Database Health
+    └── System Health
+```
+
+---
+
+# Backup & Disaster Recovery
+
+Planned capabilities:
+
+* Automated database backups
+* Scheduled backups
+* Backup retention
+* Backup verification
+* Restore workflow
+* Backup status dashboard
+* Disaster recovery procedures
+
+---
+
+# Automation Roadmap
+
+The future automation engine will support rules such as:
+
+```text
+IF payment_overdue >= 3 days
+THEN create notification
+
+IF payment_overdue >= 7 days
+THEN notify supervisor
+
+IF payment_overdue >= 15 days
+THEN escalate case
+```
+
+Future rules may include:
+
+```text
+IF promise_broken
+THEN notify employee
+
+IF promise_broken repeatedly
+THEN notify supervisor
+
+IF case exceeds SLA
+THEN escalate
+
+IF employee reaches capacity
+THEN stop automatic assignment
+
+IF payment confirmed
+THEN update case status
+```
+
+---
+
+# Planned Workflow Engine
+
+The planned workflow engine will allow business rules to be represented as:
+
+```text
+Trigger
+   ↓
+Condition
+   ↓
+Action
+   ↓
+Notification
+   ↓
+Escalation
+   ↓
+Audit
+```
+
+This will eventually allow the system to automate collection operations instead of relying entirely on manual actions.
+
+---
+
+# Testing Roadmap
+
+Planned automated testing coverage:
+
+### Unit Tests
+
+* Models
+* Services
+* Business rules
+* Calculations
+* Permission logic
+
+### Feature Tests
+
+* Authentication
+* Authorization
+* Client creation
+* Case creation
+* Assignment
+* Distribution
+* Payment
+* Confirmation
+* Promise
+* Complaint
+* Notifications
+
+### Integration Tests
+
+* APIs
+* Imports
+* Exports
+* External services
+* Webhooks
+
+### Browser / UI Tests
+
+* Critical workflows
+* Employee workflows
+* Supervisor workflows
+* Payment confirmation
+* Assignment
+* Import workflows
+
+---
+
+# Production Readiness Checklist
+
+The following items should be completed before considering the system fully production-ready:
+
+* [ ] Complete audit log
+* [ ] Complete permission matrix
+* [ ] Login history
+* [ ] Session/device management
+* [ ] Automated backups
+* [ ] Restore testing
+* [ ] Queue monitoring
+* [ ] Error monitoring
+* [ ] Production logging
+* [ ] Security hardening
+* [ ] API authentication
+* [ ] Automated tests
+* [ ] Import mapping
+* [ ] Duplicate detection
+* [ ] Scheduled jobs
+* [ ] Notification rules
+* [ ] SLA engine
+* [ ] Escalation engine
+* [ ] Workflow automation
+* [ ] Production deployment
+* [ ] Monitoring
+* [ ] Disaster recovery plan
+
+---
+
+# Development Roadmap
+
+## Phase 1 — Core System
+
+* [x] Database architecture
+* [x] Employees
+* [x] Roles
+* [x] Permissions foundation
+* [x] Banks
+* [x] Installment companies
+* [x] Clients
+* [x] Cases
+* [x] Debt
+* [x] Assignment
+* [x] Distribution
+* [x] Dashboard
+* [x] Settings
+
+## Phase 2 — Collection Operations
+
+* [x] Payments foundation
+* [x] Payment confirmations
+* [x] Promises foundation
+* [x] Notifications
+* [x] Complaints foundation
+* [x] Archives
+* [x] Import interface
+* [x] Export foundation
+* [x] Employee performance
+* [x] Operational dashboards
+
+## Phase 3 — Enterprise Security
+
+* [ ] Complete audit log
+* [ ] Login history
+* [ ] Device/session management
+* [ ] Advanced permissions
+* [ ] Security monitoring
+* [ ] API token management
+
+## Phase 4 — Automation
+
+* [ ] Scheduled jobs
+* [ ] Notification rules
+* [ ] SLA
+* [ ] Escalation
+* [ ] Workflow engine
+* [ ] Automated collection rules
+* [ ] Business hours
+* [ ] Holidays
+
+## Phase 5 — Data Intelligence
+
+* [ ] Import mapping
+* [ ] Duplicate detection
+* [ ] Advanced reporting
+* [ ] Advanced dashboards
+* [ ] Collection analytics
+* [ ] Aging analysis
+* [ ] Recovery analytics
+
+## Phase 6 — Infrastructure
+
+* [ ] Backup system
+* [ ] Restore system
+* [ ] Queue monitoring
+* [ ] Error monitoring
+* [ ] Health checks
+* [ ] Scheduler monitoring
+* [ ] Production monitoring
+
+## Phase 7 — Integrations
+
+* [ ] REST API
+* [ ] Webhooks
+* [ ] SMS
+* [ ] WhatsApp
+* [ ] Email automation
+* [ ] VoIP
+* [ ] GoIP integration
+* [ ] External payment integrations
+
+---
+
+# Project Maturity
+
+The project should currently be considered:
+
+> **Advanced Business Application — Active Development**
+
+It should **not yet be described as a fully completed enterprise collection platform** until the automation, security, monitoring, testing, backup, and integration layers are implemented and tested in production.
+
+---
+
+# Important Architecture Principle
+
+The project intentionally separates:
+
+### Implemented Features
+
+Features that already exist and can be used.
+
+### Partial Features
+
+Features where the database, UI, or foundation exists but the complete business workflow still needs implementation.
+
+### Planned Features
+
+Features that are part of the product roadmap but should not be represented as currently available functionality.
+
+This distinction is important for accurate technical documentation, project valuation, client proposals, and production-readiness assessment.
+
+---
+
+# Future Vision
+
+The long-term goal is to evolve the project from a collection management application into a complete:
+
+## Collection Management Platform
+
+covering:
+
+```text
+Clients
+   ↓
+Debts
+   ↓
+Cases
+   ↓
+Assignment
+   ↓
+Collection
+   ↓
+Calls
+   ↓
+Promises
+   ↓
+Payments
+   ↓
+Confirmation
+   ↓
+Automation
+   ↓
+Escalation
+   ↓
+Reporting
+   ↓
+Analytics
+```
+
+with centralized:
+
+```text
+Security
+Audit
+Monitoring
+Notifications
+Automation
+Integrations
+Backups
+Reporting
+```
+
+---
+
+# License
+
+License and commercial distribution terms are currently **not defined**.
+
+Before commercial distribution, define whether the project will be:
+
+* Proprietary
+* Licensed per company
+* SaaS
+* Source-code licensed
+* White-label
+* Exclusive / custom-owned
+
+---
+
+# Disclaimer
+
+This README reflects the current development state of the project.
+
+A feature marked **🟢 Implemented** means that its corresponding functionality exists in the current project.
+
+A feature marked **🟡 Partially Implemented** means that some portion of its architecture, database, UI, or workflow exists but additional implementation is required.
+
+A feature marked **🔴 Planned** is part of the roadmap and should not be considered available functionality until implemented and tested.
+
+---
+
+## Current Goal
+
+Build a secure, scalable, Arabic-first collection platform capable of managing the complete lifecycle of debt collection operations from:
+
+**Client → Case → Assignment → Collection → Promise → Payment → Confirmation → Closure / Escalation**
+
+while maintaining complete operational visibility, permissions, auditability, automation, and reporting.

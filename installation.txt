@@ -1,0 +1,1035 @@
+# Installation & Setup
+
+## Requirements
+
+Before installing the project, make sure the development environment includes:
+
+| Requirement   | Recommended                              |
+| ------------- | ---------------------------------------- |
+| PHP           | 8.2+                                     |
+| Composer      | 2.x                                      |
+| Laravel       | 12.x                                     |
+| MySQL         | 8.0+ / MariaDB equivalent                |
+| Node.js       | 20+                                      |
+| NPM           | 10+                                      |
+| Git           | Latest stable                            |
+| Web Server    | Apache / Nginx / Laravel Herd / XAMPP    |
+| Database Tool | MySQL / phpMyAdmin / TablePlus / DBeaver |
+
+### PHP Extensions
+
+The following PHP extensions should be enabled:
+
+```text
+BCMath
+Ctype
+cURL
+DOM
+Fileinfo
+JSON
+Mbstring
+OpenSSL
+PDO
+PDO_MySQL
+Tokenizer
+XML
+```
+
+For production environments, also verify that the PHP configuration matches the application's expected limits.
+
+---
+
+# 1. Clone the Repository
+
+Clone the project from GitHub:
+
+```bash
+git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
+```
+
+Enter the project directory:
+
+```bash
+cd YOUR_REPOSITORY
+```
+
+---
+
+# 2. Install PHP Dependencies
+
+Install Laravel and PHP dependencies using Composer:
+
+```bash
+composer install
+```
+
+For local development, Composer's development dependencies should normally remain enabled.
+
+---
+
+# 3. Install Frontend Dependencies
+
+Install Node.js dependencies:
+
+```bash
+npm install
+```
+
+The project uses Vite to compile the frontend assets.
+
+---
+
+# 4. Create the Environment File
+
+Copy the example environment file:
+
+### Windows
+
+```bash
+copy .env.example .env
+```
+
+### macOS / Linux
+
+```bash
+cp .env.example .env
+```
+
+---
+
+# 5. Generate the Application Key
+
+Run:
+
+```bash
+php artisan key:generate
+```
+
+This creates the application encryption key used by Laravel.
+
+> Never commit the real `APP_KEY` to GitHub.
+
+---
+
+# 6. Configure the Database
+
+Create a MySQL database for the project.
+
+For example:
+
+```sql
+CREATE DATABASE collex
+CHARACTER SET utf8mb4
+COLLATE utf8mb4_unicode_ci;
+```
+
+Then configure the database connection inside `.env`:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=collex
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+If your MySQL installation uses a password, replace the empty `DB_PASSWORD` value.
+
+---
+
+# 7. Configure the Application
+
+A basic local `.env` configuration can look like:
+
+```env
+APP_NAME=Collex
+APP_ENV=local
+APP_KEY=
+APP_DEBUG=true
+APP_URL=http://localhost
+
+APP_LOCALE=ar
+APP_FALLBACK_LOCALE=en
+APP_FAKER_LOCALE=en_US
+
+LOG_CHANNEL=stack
+LOG_LEVEL=debug
+
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=collex
+DB_USERNAME=root
+DB_PASSWORD=
+
+SESSION_DRIVER=database
+SESSION_LIFETIME=120
+
+CACHE_STORE=database
+QUEUE_CONNECTION=database
+```
+
+The exact environment values may vary depending on the deployment environment.
+
+---
+
+# 8. Run Database Migrations
+
+Run the Laravel migrations:
+
+```bash
+php artisan migrate
+```
+
+If the project contains seeders:
+
+```bash
+php artisan db:seed
+```
+
+Or run both together:
+
+```bash
+php artisan migrate --seed
+```
+
+> Do not run `migrate:fresh` on a database containing real production data unless you intentionally want to destroy and recreate the database.
+
+---
+
+# 9. Create the Storage Link
+
+Laravel's public storage directory should be linked:
+
+```bash
+php artisan storage:link
+```
+
+This allows files stored under Laravel's public storage disk to be accessible through the web application.
+
+---
+
+# 10. Clear Laravel Caches
+
+After installation, clear cached configuration, routes, views, and application cache:
+
+```bash
+php artisan optimize:clear
+```
+
+This is especially useful after modifying `.env`, routes, configuration, or Blade files.
+
+---
+
+# 11. Build Frontend Assets
+
+For development:
+
+```bash
+npm run dev
+```
+
+For a production build:
+
+```bash
+npm run build
+```
+
+The project uses Vite for frontend asset compilation.
+
+---
+
+# 12. Start the Laravel Development Server
+
+For a simple local setup:
+
+```bash
+php artisan serve
+```
+
+The application will normally be available at:
+
+```text
+http://127.0.0.1:8000
+```
+
+or:
+
+```text
+http://localhost:8000
+```
+
+Keep Vite running in another terminal during frontend development:
+
+```bash
+npm run dev
+```
+
+---
+
+# 13. Recommended Local Development Setup
+
+For normal development, use multiple terminals.
+
+### Terminal 1 — Laravel
+
+```bash
+php artisan serve
+```
+
+### Terminal 2 — Vite
+
+```bash
+npm run dev
+```
+
+### Terminal 3 — Queue Worker
+
+If the project uses queued jobs:
+
+```bash
+php artisan queue:work
+```
+
+### Terminal 4 — Scheduler
+
+For scheduled tasks during development:
+
+```bash
+php artisan schedule:work
+```
+
+The queue and scheduler commands should only be used when the corresponding jobs/features are configured in the application.
+
+---
+
+# 14. Using XAMPP
+
+If using XAMPP on Windows:
+
+### Start
+
+* Apache
+* MySQL
+
+### Database
+
+Open:
+
+```text
+http://localhost/phpmyadmin
+```
+
+Create the project database:
+
+```text
+collex
+```
+
+Then configure `.env`:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=collex
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+Navigate to the project directory:
+
+```bash
+cd C:\xampp\htdocs\collex
+```
+
+Install dependencies:
+
+```bash
+composer install
+npm install
+```
+
+Generate the application key:
+
+```bash
+php artisan key:generate
+```
+
+Run migrations:
+
+```bash
+php artisan migrate
+```
+
+Create storage link:
+
+```bash
+php artisan storage:link
+```
+
+Clear caches:
+
+```bash
+php artisan optimize:clear
+```
+
+Then either use Apache through XAMPP or run:
+
+```bash
+php artisan serve
+```
+
+For Vite development:
+
+```bash
+npm run dev
+```
+
+---
+
+# 15. First-Time Installation Checklist
+
+After installation, verify:
+
+```text
+[ ] Repository cloned
+[ ] Composer dependencies installed
+[ ] NPM dependencies installed
+[ ] .env created
+[ ] APP_KEY generated
+[ ] Database created
+[ ] Database credentials configured
+[ ] Migrations completed
+[ ] Seeders completed if applicable
+[ ] Storage link created
+[ ] Laravel cache cleared
+[ ] Vite assets compiled
+[ ] Application starts successfully
+[ ] Login page works
+[ ] Database connection works
+[ ] File uploads work
+[ ] Notifications page works
+[ ] Settings page works
+[ ] Banks module works
+[ ] Employees module works
+```
+
+---
+
+# 16. Development Environment Verification
+
+You can verify the Laravel environment with:
+
+```bash
+php artisan about
+```
+
+Check the Laravel version:
+
+```bash
+php artisan --version
+```
+
+Check PHP:
+
+```bash
+php -v
+```
+
+Check Composer:
+
+```bash
+composer --version
+```
+
+Check Node:
+
+```bash
+node -v
+```
+
+Check NPM:
+
+```bash
+npm -v
+```
+
+---
+
+# 17. Useful Artisan Commands
+
+### Clear all caches
+
+```bash
+php artisan optimize:clear
+```
+
+### Clear configuration cache
+
+```bash
+php artisan config:clear
+```
+
+### Clear route cache
+
+```bash
+php artisan route:clear
+```
+
+### Clear view cache
+
+```bash
+php artisan view:clear
+```
+
+### Cache configuration
+
+```bash
+php artisan config:cache
+```
+
+### Cache routes
+
+```bash
+php artisan route:cache
+```
+
+### Cache views
+
+```bash
+php artisan view:cache
+```
+
+> In production, caching commands should be run as part of the deployment process after the environment is configured correctly.
+
+---
+
+# 18. Database Commands
+
+Run migrations:
+
+```bash
+php artisan migrate
+```
+
+Check migration status:
+
+```bash
+php artisan migrate:status
+```
+
+Run seeders:
+
+```bash
+php artisan db:seed
+```
+
+Run migrations and seeders:
+
+```bash
+php artisan migrate --seed
+```
+
+Create a new migration:
+
+```bash
+php artisan make:migration create_example_table
+```
+
+Create a model with migration:
+
+```bash
+php artisan make:model Example -m
+```
+
+---
+
+# 19. Creating an Administrator
+
+The recommended approach is to use the project's existing user/role management system or a dedicated seeder.
+
+If the project contains an administrator seeder, run:
+
+```bash
+php artisan db:seed --class=AdminUserSeeder
+```
+
+If no administrator seeder exists yet, create the administrator through the application's user-management interface after installation.
+
+> Do not hard-code real administrator passwords in the repository.
+
+---
+
+# 20. Queue Configuration
+
+The project is designed to support queued operations such as:
+
+* Notifications
+* Imports
+* Exports
+* Scheduled workflows
+* External integrations
+* Long-running reports
+
+For a database queue configuration:
+
+```env
+QUEUE_CONNECTION=database
+```
+
+If the queue migration has not already been created:
+
+```bash
+php artisan make:queue-table
+```
+
+Then:
+
+```bash
+php artisan migrate
+```
+
+Start the worker:
+
+```bash
+php artisan queue:work
+```
+
+For production, the queue worker should be managed by a process manager such as Supervisor rather than manually running it in a terminal.
+
+---
+
+# 21. Scheduler Configuration
+
+The planned automation layer will rely heavily on Laravel's scheduler.
+
+During development:
+
+```bash
+php artisan schedule:work
+```
+
+For Linux production environments, configure a cron entry that executes Laravel's scheduler every minute.
+
+Example:
+
+```cron
+* * * * * cd /path/to/collex && php artisan schedule:run >> /dev/null 2>&1
+```
+
+The scheduler will eventually be used for features such as:
+
+* Payment overdue notifications
+* Promise monitoring
+* SLA checks
+* Escalation
+* Daily reports
+* Data retention
+* Automated backups
+* Scheduled exports
+
+Only features that have actually been implemented should be enabled in production.
+
+---
+
+# 22. Production Installation
+
+For a production server, the recommended architecture is:
+
+```text
+Internet
+   │
+   ▼
+Nginx / Apache
+   │
+   ▼
+PHP-FPM
+   │
+   ▼
+Laravel
+   │
+   ├── MySQL
+   ├── Queue Worker
+   ├── Scheduler
+   ├── Storage
+   └── Cache
+```
+
+The web server document root should point to Laravel's:
+
+```text
+/public
+```
+
+directory.
+
+Do **not** expose the project root directly to the public internet.
+
+---
+
+# 23. Production Environment
+
+A production `.env` should use:
+
+```env
+APP_ENV=production
+APP_DEBUG=false
+```
+
+Never use:
+
+```env
+APP_DEBUG=true
+```
+
+on a production server.
+
+Production credentials, API keys, database passwords, encryption keys, and other secrets must remain outside Git.
+
+---
+
+# 24. Production Optimization
+
+After deployment:
+
+```bash
+php artisan optimize:clear
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+```
+
+Build frontend assets before deployment:
+
+```bash
+npm run build
+```
+
+Restart queue workers after deploying new application code:
+
+```bash
+php artisan queue:restart
+```
+
+---
+
+# 25. File Permissions
+
+On Linux production servers, Laravel must be able to write to:
+
+```text
+storage/
+bootstrap/cache/
+```
+
+Example:
+
+```bash
+chmod -R 775 storage bootstrap/cache
+```
+
+The exact ownership and permissions should follow the server's PHP-FPM/web-server user configuration.
+
+Avoid using:
+
+```bash
+chmod -R 777
+```
+
+in production.
+
+---
+
+# 26. Environment Variables & Secrets
+
+Never commit:
+
+```text
+.env
+```
+
+to GitHub.
+
+The repository should contain:
+
+```text
+.env.example
+```
+
+but not the real environment file.
+
+Sensitive values include:
+
+```text
+APP_KEY
+DB_PASSWORD
+MAIL_PASSWORD
+API_KEYS
+WEBHOOK_SECRETS
+THIRD_PARTY_CREDENTIALS
+```
+
+These should be configured through the deployment environment or a secure secrets manager.
+
+---
+
+# 27. Recommended Git Workflow
+
+Create a feature branch:
+
+```bash
+git checkout -b feature/feature-name
+```
+
+Make changes and check the project:
+
+```bash
+php artisan optimize:clear
+php artisan test
+```
+
+Build frontend assets:
+
+```bash
+npm run build
+```
+
+Then:
+
+```bash
+git add .
+git commit -m "Add feature name"
+git push origin feature/feature-name
+```
+
+---
+
+# 28. Before Opening a Pull Request
+
+Run:
+
+```bash
+composer install
+npm install
+php artisan optimize:clear
+php artisan migrate
+php artisan test
+npm run build
+```
+
+Then manually verify critical workflows:
+
+```text
+[ ] Login
+[ ] Authorization
+[ ] Employees
+[ ] Banks
+[ ] Installment companies
+[ ] Clients
+[ ] Cases
+[ ] Assignment
+[ ] Distribution
+[ ] Payments
+[ ] Confirmations
+[ ] Promises
+[ ] Notifications
+[ ] Complaints
+[ ] Imports
+[ ] Archives
+[ ] Reports
+[ ] Settings
+```
+
+---
+
+# 29. Troubleshooting
+
+## "No application encryption key has been specified."
+
+Run:
+
+```bash
+php artisan key:generate
+```
+
+---
+
+## Database connection error
+
+Check:
+
+```env
+DB_HOST
+DB_PORT
+DB_DATABASE
+DB_USERNAME
+DB_PASSWORD
+```
+
+Then run:
+
+```bash
+php artisan optimize:clear
+```
+
+---
+
+## Vite assets are not loading
+
+Run:
+
+```bash
+npm install
+npm run dev
+```
+
+For production:
+
+```bash
+npm run build
+```
+
+---
+
+## Storage files are not accessible
+
+Run:
+
+```bash
+php artisan storage:link
+```
+
+---
+
+## Route changes are not appearing
+
+Run:
+
+```bash
+php artisan route:clear
+php artisan optimize:clear
+```
+
+---
+
+## Blade changes are not appearing
+
+Run:
+
+```bash
+php artisan view:clear
+```
+
+or:
+
+```bash
+php artisan optimize:clear
+```
+
+---
+
+## Queue jobs are not processing
+
+Start:
+
+```bash
+php artisan queue:work
+```
+
+Then inspect failed jobs if the project has failed-job handling configured.
+
+---
+
+# 30. Fresh Local Installation
+
+For a completely new development environment:
+
+```bash
+git clone https://github.com/YOUR_USERNAME/YOUR_REPOSITORY.git
+cd YOUR_REPOSITORY
+
+composer install
+npm install
+
+cp .env.example .env
+
+php artisan key:generate
+
+# Configure DB_* values in .env before continuing
+
+php artisan migrate --seed
+php artisan storage:link
+php artisan optimize:clear
+
+npm run dev
+```
+
+In another terminal:
+
+```bash
+php artisan serve
+```
+
+The application is then available at:
+
+```text
+http://127.0.0.1:8000
+```
+
+---
+
+# 31. Production Deployment Checklist
+
+Before going live:
+
+```text
+[ ] Production server configured
+[ ] PHP version verified
+[ ] MySQL configured
+[ ] Domain configured
+[ ] SSL certificate installed
+[ ] .env configured securely
+[ ] APP_DEBUG=false
+[ ] Database migrated
+[ ] Storage configured
+[ ] Storage permissions verified
+[ ] Frontend built
+[ ] Queue worker configured
+[ ] Scheduler configured
+[ ] Backups configured
+[ ] Restore procedure tested
+[ ] Error monitoring configured
+[ ] Application monitoring configured
+[ ] Logs configured
+[ ] Security hardening completed
+[ ] Automated tests passing
+[ ] Admin account created securely
+[ ] Critical workflows manually tested
+```
+
+---
+
+# 32. Important Production Note
+
+Some enterprise capabilities listed in this README are currently part of the roadmap.
+
+In particular:
+
+* Automated collection workflows
+* SLA engine
+* Escalation engine
+* Complete audit logging
+* Advanced monitoring
+* Backup/restore automation
+* Advanced API
+* Webhooks
+* SMS
+* WhatsApp
+* VoIP
+* Complete security monitoring
+
+should only be enabled or advertised as production features after their implementation and testing are complete.
+
+The installation procedure above provides the foundation for the current Laravel application and its future enterprise modules.
